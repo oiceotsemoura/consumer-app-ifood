@@ -1,5 +1,5 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParamList} from '../constants/routes';
+import {RootStackParamList} from '@constants/routes';
 
 export declare global {
   namespace ReactNavigation {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Routes} from '../constants/routes';
-import * as Features from '../features/index';
+import {Routes} from '@constants/routes';
+import * as Features from '@features/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,10 +10,14 @@ export const Navigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{header: () => null}}
-        name={Routes.HOME}
-        component={Features.Pedidos}
+        name={Routes.ORDERS}
+        component={Features.Orders}
       />
-      <Stack.Screen name={Routes.PROFILE} component={Features.Profile} />
+      <Stack.Screen
+        options={{header: () => null}}
+        name={Routes.ORDER}
+        component={Features.Order}
+      />
     </Stack.Navigator>
   );
 };

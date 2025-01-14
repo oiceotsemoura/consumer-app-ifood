@@ -1,4 +1,4 @@
-import {IOrder} from '../interfaces/IOrder';
+import {IOrder} from '@interfaces/IOrder';
 
 export enum Routes {
   ORDERS = 'ORDERS',

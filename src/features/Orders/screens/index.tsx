@@ -1,10 +1,9 @@
 import React from 'react';
 // import UserCircle from '../../../assets/user-circle.svg';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {OrderPanel} from '../../../components/OrderPanel';
-
-import {IOrder} from '../../../interfaces/IOrder';
-import {FooterMenu} from '../../../components/FooterMenu';
+import {OrderPanel} from '@components/OrderPanel';
+import {IOrder} from '@interfaces/IOrder';
+import {FooterMenu} from '@components/FooterMenu';
 
 const ordersTotalData: IOrder[] = [
   {

@@ -1,9 +1,9 @@
 import React from 'react';
-import {IOrder} from '../../interfaces/IOrder';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {theme} from '../../theme';
 import {useNavigation} from '@react-navigation/native';
-import {Routes} from '../../constants/routes';
+import {IOrder} from '@interfaces/IOrder';
+import {theme} from '@theme/index';
+import {Routes} from '@constants/routes';
 interface IProps {
   orders: IOrder[];
   title: string;
