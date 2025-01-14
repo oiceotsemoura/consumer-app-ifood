@@ -14,6 +14,7 @@ import {FooterOrder} from '../components/FooterOrder';
 import {formatToReais} from '@utils/format';
 import completeIon from '@assets/icons/complete.png';
 import {theme} from '@theme/index';
+import {PlusButton} from '@components/PlusButton';
 
 interface IAdicional {
   nome: string;
@@ -178,6 +179,7 @@ export const Order = () => {
         </View>
       </ScrollView>
       <FooterOrder />
+      <PlusButton color="green" />
     </>
   );
 };

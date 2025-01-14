@@ -1,22 +1,39 @@
 import React from 'react';
 import {Image, TouchableOpacity, StyleSheet, View} from 'react-native';
-import PlusImage from '@assets/icons/mais-black.png';
+import PlusBlackImage from '@assets/icons/mais-black.png';
+import PlusGreenImage from '@assets/icons/mais-green.png';
 
-export const PlusButton = () => {
+export const PlusButton = ({
+  color,
+  midle,
+}: {
+  color: 'black' | 'green';
+  midle: boolean;
+}) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={StyleSheet.compose(styles.container, midle ? styles.midle : {})}>
       <TouchableOpacity style={styles.floatingButton}>
-        <Image source={PlusImage} style={styles.buttonImage} />
+        {color === 'black' ? (
+          <Image source={PlusBlackImage} style={styles.buttonImage} />
+        ) : (
+          <Image source={PlusGreenImage} style={styles.buttonImage} />
+        )}
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  midle: {
+    alignItems: 'center',
+    right: 0,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    right: 20,
   },
   floatingButton: {
     position: 'absolute',

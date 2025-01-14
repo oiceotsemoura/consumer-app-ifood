@@ -128,7 +128,7 @@ export const Orders = () => {
           />
         </View>
       </ScrollView>
-      <PlusButton />
+      <PlusButton midle color="black" />
       <FooterMenu />
     </>
   );
