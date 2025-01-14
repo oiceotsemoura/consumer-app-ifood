@@ -8,7 +8,7 @@ export const PlusButton = ({
   midle,
 }: {
   color: 'black' | 'green';
-  midle: boolean;
+  midle?: boolean;
 }) => {
   return (
     <View
