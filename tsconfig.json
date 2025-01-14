@@ -9,7 +9,8 @@
       "@navigator/*": ["./src/navigator/*"],
       "@features/*": ["./src/features/*"],
       "@theme/*": ["./src/theme/*"],
-      "@interfaces/*": ["./src/interfaces/*"]
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

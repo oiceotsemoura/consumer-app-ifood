@@ -25,6 +25,7 @@ module.exports = {
           '@theme': './src/theme',
           '@interfaces': './src/interfaces',
           '@assets': './src/assets',
+          '@utils': './src/utils',
         },
       },
     ],

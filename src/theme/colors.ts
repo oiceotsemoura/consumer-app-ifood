@@ -17,6 +17,7 @@ const BrandColors = {
     dark: '#22212166',
     medium: '#BCBDC2',
     light: '#D3D3D4',
+    almostWhite: '#ECECEC',
     white: '#FFF',
   },
 };

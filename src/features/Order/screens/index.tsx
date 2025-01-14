@@ -1,14 +1,20 @@
-import {ScrollView, Text, View} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import React from 'react';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {RootStackParamList, Routes} from '@constants/routes';
-import {FooterMenu} from '../components/FooterOrder';
-const formatToReais = (value: number): string => {
-  return value.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
-};
+import {FooterOrder} from '../components/FooterOrder';
+import {formatToReais} from '@utils/format';
+import completeIon from '@assets/icons/complete.png';
+import {theme} from '@theme/index';
+
 interface IAdicional {
   nome: string;
   preco: number;
@@ -101,56 +107,32 @@ const itens: IOrderItem[] = [
 
 const OrderItem = ({orderItem}: {orderItem: IOrderItem}) => {
   return (
-    <View
-      style={{
-        paddingVertical: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderBottomWidth: 1,
-        borderColor: '#D3D3D4',
-        borderStyle: 'dashed',
-      }}>
-      <View
-        style={{
-          flex: 1,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingVertical: 5,
-          }}>
-          <Text style={{fontWeight: 'bold'}}>
+    <View style={styles.orderItem}>
+      <View style={styles.orderItemDetails}>
+        <View style={styles.orderItemHeader}>
+          <Text style={styles.orderItemTitle}>
             <Text>{orderItem.quantidade} </Text> {orderItem.nome}
           </Text>
-          <Text style={{fontWeight: 'bold', paddingRight: 10}}>
+          <Text style={styles.orderItemPrice}>
             {formatToReais(orderItem.preco)}
           </Text>
         </View>
 
-        <Text style={{color: '#6D6D6D', paddingVertical: 5}}>
+        <Text style={styles.orderItemObservation}>
           <Text>{orderItem.observacao}</Text>
         </Text>
-        {orderItem.adicionais.map(adicional => {
+        {orderItem.adicionais.map((adicional, index) => {
           return (
-            <Text
-              style={{
-                fontWeight: 'bold',
-                paddingVertical: 5,
-              }}>
-              {' '}
+            <Text key={`adicional${index}`} style={styles.orderItemAdditional}>
               {`+ ${adicional.nome} (${formatToReais(adicional.preco)})`}
             </Text>
           );
         })}
       </View>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingHorizontal: 10,
-        }}>
-        <Text>5</Text>
+      <View style={styles.orderItemQuantity}>
+        <TouchableOpacity onPress={() => Alert.alert('')}>
+          <Image source={completeIon} style={{width: 20, height: 5}} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -162,67 +144,31 @@ export const Order = () => {
 
   return (
     <>
-      <View style={{backgroundColor: '#5B9878', height: 65}} />
-      <ScrollView
-        contentContainerStyle={{
-          padding: 12,
-          backgroundColor: 'white',
-          paddingBottom: 150,
-        }}>
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{fontWeight: 'bold', fontSize: 50}}>{order.number}</Text>
+      <View style={styles.header} />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.orderTitleContainer}>
+          <Text style={styles.orderTitle}>{order.number}</Text>
         </View>
-        <View
-          style={{
-            backgroundColor: '#F0F0F0',
-            borderRadius: 12,
-            paddingVertical: 6,
-            marginVertical: 15,
-          }}>
-          <View
-            style={{
-              marginHorizontal: 18,
-              paddingBottom: 12,
-              paddingTop: 6,
-              borderBottomWidth: 1,
-              borderColor: '#D3D3D4',
-            }}>
-            <Text style={{fontSize: 15}}>
-              Cliente:{' '}
-              <Text style={{fontWeight: 'bold'}}>{order.cliente.nome}</Text>
+        <View style={styles.orderDetails}>
+          <View style={styles.customerInfo}>
+            <Text style={styles.customerText}>
+              Cliente: <Text style={styles.boldText}>{order.cliente.nome}</Text>
             </Text>
           </View>
-          <View
-            style={{
-              marginHorizontal: 18,
-              paddingBottom: 12,
-              paddingTop: 12,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{fontSize: 15}}>
+          <View style={styles.orderInfo}>
+            <Text style={styles.orderInfoText}>
               Qtde.pessoas:
-              <Text style={{fontWeight: 'bold'}}>
-                {' '}
-                {order.quantidadePessoas}
-              </Text>
+              <Text style={styles.boldText}> {order.quantidadePessoas}</Text>
             </Text>
-            <Text style={{fontSize: 15}}>
+            <Text style={styles.orderInfoText}>
               Tempo total:{' '}
-              <Text style={{fontWeight: 'bold'}}>{order.tempoTotal}min.</Text>
+              <Text style={styles.boldText}>{order.tempoTotal}min.</Text>
             </Text>
           </View>
         </View>
         <View>
-          <View
-            style={{
-              paddingBottom: 12,
-              paddingTop: 6,
-              borderBottomWidth: 1,
-              borderColor: '#D3D3D4',
-            }}>
-            <Text
-              style={{fontSize: 16, fontWeight: 'bold'}}>{`Itens (5)`}</Text>
+          <View style={styles.itemsHeader}>
+            <Text style={styles.itemsTitle}>{`Itens (5)`}</Text>
           </View>
           {itens.map(orderItem => {
             return (
@@ -231,7 +177,102 @@ export const Order = () => {
           })}
         </View>
       </ScrollView>
-      <FooterMenu />
+      <FooterOrder />
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: theme.colors.BrandColors.Green.main,
+    height: 65,
+  },
+  scrollContainer: {
+    padding: 12,
+    backgroundColor: theme.colors.BrandColors.GrayScale.white,
+    paddingBottom: 150,
+  },
+  orderTitleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderTitle: {
+    fontWeight: 'bold',
+    fontSize: 50,
+  },
+  orderDetails: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 12,
+    paddingVertical: 6,
+    marginVertical: 15,
+  },
+  customerInfo: {
+    marginHorizontal: 18,
+    paddingBottom: 12,
+    paddingTop: 6,
+    borderBottomWidth: 1,
+    borderColor: theme.colors.BrandColors.GrayScale.light,
+  },
+  customerText: {
+    fontSize: 15,
+  },
+  orderInfo: {
+    marginHorizontal: 18,
+    paddingBottom: 12,
+    paddingTop: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  orderInfoText: {
+    fontSize: 15,
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
+  itemsHeader: {
+    paddingBottom: 12,
+    paddingTop: 6,
+    borderBottomWidth: 1,
+    borderColor: theme.colors.BrandColors.GrayScale.light,
+  },
+  itemsTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  orderItem: {
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.BrandColors.GrayScale.light,
+    borderStyle: 'dashed',
+  },
+  orderItemDetails: {
+    flex: 1,
+  },
+  orderItemHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+  },
+  orderItemTitle: {
+    fontWeight: 'bold',
+  },
+  orderItemPrice: {
+    fontWeight: 'bold',
+    paddingRight: 10,
+  },
+  orderItemObservation: {
+    color: '#6D6D6D',
+    paddingVertical: 5,
+  },
+  orderItemAdditional: {
+    fontWeight: 'bold',
+    paddingVertical: 5,
+  },
+  orderItemQuantity: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+});

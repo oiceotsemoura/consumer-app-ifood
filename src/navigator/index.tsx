@@ -10,6 +10,16 @@ export const Navigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{header: () => null}}
+        name={Routes.WELCOME}
+        component={Features.Welcome}
+      />
+      <Stack.Screen
+        options={{header: () => null}}
+        name={Routes.LOGIN}
+        component={Features.Login}
+      />
+      <Stack.Screen
+        options={{header: () => null}}
         name={Routes.ORDERS}
         component={Features.Orders}
       />

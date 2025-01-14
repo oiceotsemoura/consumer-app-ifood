@@ -1,9 +1,11 @@
 import React from 'react';
-// import UserCircle from '../../../assets/user-circle.svg';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import {OrderPanel} from '@components/OrderPanel';
 import {IOrder} from '@interfaces/IOrder';
 import {FooterMenu} from '@components/FooterMenu';
+import {PlusButton} from '@components/PlusButton';
+import UserIcon from '@assets/icons/user-circle.png';
+import {theme} from '@theme/index';
 
 const ordersTotalData: IOrder[] = [
   {
@@ -12,6 +14,7 @@ const ordersTotalData: IOrder[] = [
     quantidadePessoas: 3,
     tempoTotal: 45,
   },
+
   {
     number: '22',
     cliente: {nome: 'Bob'},
@@ -101,28 +104,38 @@ const myOrdersData: IOrder[] = [
 
 export const Orders = () => {
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, padding: 15}}>
-      <View style={{alignItems: 'flex-end'}}>
-        <Text>admin</Text>
-        {/* <UserCircle height={20} width={20} /> */}
-      </View>
-      <View>
-        <Text style={styles.title}>Pedidos abertos</Text>
-        <OrderPanel
-          title={`Abertos por mim (${myOrdersData.length})`}
-          orders={myOrdersData}
-        />
-        <OrderPanel
-          title={`Todos (${ordersTotalData.length})`}
-          orders={ordersTotalData}
-        />
-      </View>
+    <>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.headerContainer}>
+          <View style={styles.userInfoContainer}>
+            <Text style={styles.userText}>admin</Text>
+            <Image source={UserIcon} style={styles.userIcon} />
+          </View>
+        </View>
+        <View>
+          <Text style={styles.title}>Pedidos abertos</Text>
+          <OrderPanel
+            title={`Abertos por mim (${myOrdersData.length})`}
+            orders={myOrdersData}
+          />
+          <OrderPanel
+            title={`Todos (${ordersTotalData.length})`}
+            orders={ordersTotalData}
+          />
+          <OrderPanel
+            title={`Todos (${ordersTotalData.length})`}
+            orders={ordersTotalData}
+          />
+        </View>
+      </ScrollView>
+      <PlusButton />
       <FooterMenu />
-    </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  contentContainer: {flexGrow: 1, padding: 15, paddingBottom: 120},
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -131,9 +144,9 @@ const styles = StyleSheet.create({
   },
   tile: {
     width: 82,
-    height: 82, // Aproximadamente 1/4 do espaço com margem
-    aspectRatio: 1, // Mantém o quadrado
-    backgroundColor: '#4CAF50',
+    height: 82,
+    aspectRatio: 1,
+    backgroundColor: theme.colors.BrandColors.Green.main,
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -146,12 +159,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    color: '#222121',
+    color: theme.colors.BrandColors.GrayScale.almostBlack,
     fontSize: 32,
     paddingBottom: 32,
   },
   footer: {
-    backgroundColor: '#ECECEC',
+    backgroundColor: theme.colors.BrandColors.GrayScale.almostWhite,
     paddingTop: 20,
     paddingHorizontal: 50,
     paddingBottom: 50,
@@ -161,6 +174,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 1, // Garante que o footer fique acima do conteúdo do ScrollView
+    zIndex: 1,
+  },
+  headerContainer: {
+    alignItems: 'flex-end',
+    paddingTop: 30,
+  },
+  userInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userText: {
+    paddingRight: 5,
+  },
+  userIcon: {
+    width: 20,
+    height: 20,
   },
 });
